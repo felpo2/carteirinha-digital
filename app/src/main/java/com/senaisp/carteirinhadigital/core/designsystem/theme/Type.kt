@@ -1,4 +1,4 @@
-package com.senaisp.carteirinhadigital.ui.theme
+package com.senaisp.carteirinhadigital.core.designsystem.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

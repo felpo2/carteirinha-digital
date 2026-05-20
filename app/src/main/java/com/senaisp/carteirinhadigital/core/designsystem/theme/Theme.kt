@@ -1,6 +1,5 @@
-package com.senaisp.carteirinhadigital.ui.theme
+package com.senaisp.carteirinhadigital.core.designsystem.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
