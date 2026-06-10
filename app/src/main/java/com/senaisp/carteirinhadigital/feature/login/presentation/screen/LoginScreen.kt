@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.senaisp.carteirinhadigital.app.navigation.Routes
+import com.senaisp.carteirinhadigital.feature.carteirinha.presentation.screen.CarteirinhaScreen
 
 @Composable
 fun LoginScreen(
@@ -62,11 +64,11 @@ fun LoginScreen(
             }
         )
         Button(
-            onClick = {navController.navigate(Routes.Carteirinha)},
-            modifier = Modifier.fillMaxWidth(),
+            onClick = {navController.navigate(Routes.Home.route)},
+            modifier = Modifier.width(300.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primary,   // Preto Puro
-                contentColor = MaterialTheme.colorScheme.onPrimary    // Amarelo Forte
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
             )
         ) {
             Text(text = "Entrar")
