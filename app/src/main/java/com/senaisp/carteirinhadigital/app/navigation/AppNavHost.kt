@@ -26,7 +26,7 @@ fun AppNavHost(
     ) {
         composable(Routes.Login.route) {
             LoginScreen(
-                navController=navController
+                navController = navController
             )
         }
         composable(Routes.Carteirinha.route) {
