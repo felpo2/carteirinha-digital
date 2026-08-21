@@ -10,10 +10,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.senaisp.carteirinhadigital.feature.carteirinha.presentation.screen.CarteirinhaScreen
 import com.senaisp.carteirinhadigital.feature.carteirinha.presentation.screen.HomeScreen
-import com.senaisp.carteirinhadigital.feature.carteirinha.presentation.screen.HomeScreen
 import com.senaisp.carteirinhadigital.feature.login.presentation.screen.LoginScreen
-import com.senaisp.carteirinhadigital.feature.unidadecurriculares.domain.model.UnidadeCurricular
-import com.senaisp.carteirinhadigital.feature.unidadecurriculares.presentation.component.UnidadeCurricularCard
+import com.senaisp.carteirinhadigital.feature.professor.presentation.screen.ProfessorHomeScreen
 import com.senaisp.carteirinhadigital.feature.unidadecurriculares.presentation.screen.UnidadeCurricularScreen
 
 @Composable
@@ -36,12 +34,17 @@ fun AppNavHost(
                 )
             }
         }
-        composable (Routes.Home.route){
+        composable(Routes.Home.route) {
             HomeScreen(
-                navController=navController
+                navController = navController
             )
         }
-        composable (Routes.UnidadeCurricular.route){
+        composable(Routes.ProfessorHomeScreen.route) {
+            ProfessorHomeScreen(
+                navController = navController
+            )
+        }
+        composable(Routes.UnidadeCurricular.route) {
             UnidadeCurricularScreen()
         }
     }
