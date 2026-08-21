@@ -8,8 +8,9 @@ sealed class Routes (val route: String){
     data object Home : Routes("Home")
 
     data object UnidadeCurricular : Routes("UnidadeCurricular")
-    companion object {
-        val Turmas: Any
-    }
+
+    data object Turmas : Routes("turmas")
+
+    data object ProfessorHomeScreen : Routes("professorHomeScreen")
 
 }

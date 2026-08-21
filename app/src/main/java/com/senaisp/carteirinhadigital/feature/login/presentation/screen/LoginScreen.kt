@@ -227,7 +227,7 @@ fun LoginScreen(
                             password == "123456" -> {
 
                         navController.navigate(
-                            Routes.Home.route
+                            Routes.ProfessorHomeScreen.route
                         )
                     }
 
