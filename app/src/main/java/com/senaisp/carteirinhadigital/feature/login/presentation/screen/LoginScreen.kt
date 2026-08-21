@@ -2,8 +2,6 @@ package com.senaisp.carteirinhadigital.feature.login.presentation.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,8 +11,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -31,13 +32,10 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
 import com.senaisp.carteirinhadigital.R
+import com.senaisp.carteirinhadigital.app.navigation.Routes
 
 private val Background = Color(0xFF282828)
 private val White = Color(0xFFF3F3F3)
@@ -46,6 +44,7 @@ private val TextWhite = Color.White.copy(alpha = 0.85f)
 
 @Composable
 fun LoginScreen(
+    navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
 
@@ -58,6 +57,10 @@ fun LoginScreen(
     }
 
     var passwordVisible by remember {
+        mutableStateOf(false)
+    }
+
+    var loginError by remember {
         mutableStateOf(false)
     }
 
@@ -126,6 +129,7 @@ fun LoginScreen(
                 value = email,
                 onValueChange = {
                     email = it
+                    loginError = false
                 },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
@@ -166,6 +170,7 @@ fun LoginScreen(
                 value = password,
                 onValueChange = {
                     password = it
+                    loginError = false
                 },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
@@ -190,13 +195,47 @@ fun LoginScreen(
         }
 
         Spacer(
-            modifier = Modifier.height(36.dp)
+            modifier = Modifier.height(12.dp)
+        )
+
+        if (loginError) {
+            Text(
+                text = "E-mail ou senha incorretos.",
+                color = Color(0xFFFF6B6B),
+                style = MaterialTheme.typography.bodySmall
+            )
+        }
+
+        Spacer(
+            modifier = Modifier.height(24.dp)
         )
 
         // Botão Entrar
         Button(
             onClick = {
-                // Autenticação será implementada depois
+
+                when {
+                    email == "aluno@senai.com" &&
+                            password == "123456" -> {
+
+                        navController.navigate(
+                            Routes.Home.route
+                        )
+                    }
+
+                    email == "professor@senai.com" &&
+                            password == "123456" -> {
+
+                        navController.navigate(
+                            Routes.Home.route
+                        )
+                    }
+
+                    else -> {
+                        loginError = true
+                    }
+                }
+
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -236,5 +275,5 @@ fun LoginScreen(
 )
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen()
+    // Preview sem navegação
 }

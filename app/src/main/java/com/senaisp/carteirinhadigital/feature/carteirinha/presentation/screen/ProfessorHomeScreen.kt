@@ -1,10 +1,11 @@
-package com.senaisp.carteirinhadigital.feature.carteirinha.presentation.screen
+package com.senaisp.carteirinhadigital.feature.professor.presentation.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -30,9 +31,9 @@ private val CardColor = Color(0xFF595959).copy(alpha = 0.20f)
 private val White = Color(0xFFF3F3F3)
 
 @Composable
-fun HomeScreen(
-    modifier: Modifier = Modifier,
-    navController: NavController
+fun ProfessorHomeScreen(
+    navController: NavController,
+    modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
@@ -56,7 +57,7 @@ fun HomeScreen(
         Spacer(modifier = Modifier.height(6.dp))
 
         Text(
-            text = "Aluno",
+            text = "Professor",
             color = Color.White.copy(alpha = 0.76f),
             fontSize = 18.sp,
             fontWeight = FontWeight.Medium
@@ -78,22 +79,20 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(30.dp))
 
-            HomeOptionCard(
-                icon = {
-                },
-                text = "Carteirinha",
+            ProfessorOptionCard(
+                icon = {},
+                text = "Turmas",
                 onClick = {
                     navController.navigate(
-                        Routes.Carteirinha.route
+                        Routes.Turmas.route
                     )
                 }
             )
 
             Spacer(modifier = Modifier.height(30.dp))
 
-            HomeOptionCard(
-                icon = {
-                },
+            ProfessorOptionCard(
+                icon = {},
                 text = "Unidades Curriculares",
                 onClick = {
                     navController.navigate(
@@ -105,20 +104,42 @@ fun HomeScreen(
 
         Spacer(modifier = Modifier.weight(1f))
 
-        ExitButton(
-            onClick = {
-                navController.navigate(
-                    Routes.Login.route
-                ) {
-                    popUpTo(0)
-                }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(42.dp)
+                .background(
+                    color = White,
+                    shape = RoundedCornerShape(9.dp)
+                )
+                .clickable {
+                    navController.navigate(
+                        Routes.Login.route
+                    ) {
+                        popUpTo(0)
+                    }
+                },
+            contentAlignment = Alignment.Center
+        ) {
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                Text(
+                    text = "Sair",
+                    color = Color.Black,
+                    fontSize = 17.sp,
+                    fontWeight = FontWeight.Medium
+                )
+
             }
-        )
+        }
     }
 }
 
 @Composable
-private fun HomeOptionCard(
+private fun ProfessorOptionCard(
     icon: @Composable () -> Unit,
     text: String,
     onClick: () -> Unit
@@ -154,39 +175,6 @@ private fun HomeOptionCard(
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Medium
             )
-        }
-    }
-}
-
-@Composable
-private fun ExitButton(
-    onClick: () -> Unit
-) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(42.dp)
-            .background(
-                color = White,
-                shape = RoundedCornerShape(9.dp)
-            )
-            .clickable {
-                onClick()
-            },
-        contentAlignment = Alignment.Center
-    ) {
-
-        androidx.compose.foundation.layout.Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-
-            Text(
-                text = "Sair",
-                color = Color.Black,
-                fontSize = 17.sp,
-                fontWeight = FontWeight.Medium
-            )
-
         }
     }
 }
