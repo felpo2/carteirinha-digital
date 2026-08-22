@@ -12,6 +12,7 @@ import com.senaisp.carteirinhadigital.feature.carteirinha.presentation.screen.Ca
 import com.senaisp.carteirinhadigital.feature.carteirinha.presentation.screen.HomeScreen
 import com.senaisp.carteirinhadigital.feature.login.presentation.screen.LoginScreen
 import com.senaisp.carteirinhadigital.feature.professor.presentation.screen.ProfessorHomeScreen
+import com.senaisp.carteirinhadigital.feature.turmas.presentation.screen.TurmasScreen
 import com.senaisp.carteirinhadigital.feature.unidadecurriculares.presentation.screen.UnidadeCurricularScreen
 
 @Composable
@@ -23,26 +24,21 @@ fun AppNavHost(
         startDestination = Routes.Login.route
     ) {
         composable(Routes.Login.route) {
-            LoginScreen(
-                navController = navController
-            )
+            LoginScreen(navController = navController)
         }
         composable(Routes.Carteirinha.route) {
             Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                CarteirinhaScreen(
-                    modifier = Modifier.padding(innerPadding)
-                )
+                CarteirinhaScreen(modifier = Modifier.padding(innerPadding))
             }
         }
         composable(Routes.Home.route) {
-            HomeScreen(
-                navController = navController
-            )
+            HomeScreen(navController = navController)
         }
         composable(Routes.ProfessorHomeScreen.route) {
-            ProfessorHomeScreen(
-                navController = navController
-            )
+            ProfessorHomeScreen(navController = navController)
+        }
+        composable(Routes.Turmas.route) {
+            TurmasScreen(navController = navController)
         }
         composable(Routes.UnidadeCurricular.route) {
             UnidadeCurricularScreen()
