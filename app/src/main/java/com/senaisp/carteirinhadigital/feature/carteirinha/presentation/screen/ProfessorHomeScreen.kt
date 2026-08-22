@@ -11,9 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -39,67 +37,41 @@ fun ProfessorHomeScreen(
         modifier = modifier
             .fillMaxSize()
             .background(Background)
-            .padding(
-                start = 32.dp,
-                end = 32.dp,
-                top = 65.dp,
-                bottom = 64.dp
-            )
+            .padding(start = 32.dp, end = 32.dp, top = 65.dp, bottom = 64.dp)
     ) {
-
         Text(
             text = "Seja bem-vindo, Felipe",
             color = Color.White,
             fontSize = 23.sp,
             fontWeight = FontWeight.Medium
         )
-
         Spacer(modifier = Modifier.height(6.dp))
-
         Text(
             text = "Professor",
             color = Color.White.copy(alpha = 0.76f),
             fontSize = 18.sp,
             fontWeight = FontWeight.Medium
         )
-
         Spacer(modifier = Modifier.weight(1f))
 
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
             Text(
                 text = "Selecione uma das opções:",
                 color = Color.White,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium
             )
-
             Spacer(modifier = Modifier.height(30.dp))
-
-            ProfessorOptionCard(
-                icon = {},
-                text = "Turmas",
-                onClick = {
-                    navController.navigate(
-                        Routes.Turmas.route
-                    )
-                }
-            )
-
+            ProfessorOptionCard(text = "Turmas") {
+                navController.navigate(Routes.Turmas.route)
+            }
             Spacer(modifier = Modifier.height(30.dp))
-
-            ProfessorOptionCard(
-                icon = {},
-                text = "Unidades Curriculares",
-                onClick = {
-                    navController.navigate(
-                        Routes.UnidadeCurricular.route
-                    )
-                }
-            )
+            ProfessorOptionCard(text = "Unidades Curriculares") {
+                navController.navigate(Routes.ProfessorUnidadeCurricular.route)
+            }
         }
 
         Spacer(modifier = Modifier.weight(1f))
@@ -108,31 +80,21 @@ fun ProfessorHomeScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(42.dp)
-                .background(
-                    color = White,
-                    shape = RoundedCornerShape(9.dp)
-                )
+                .background(White, RoundedCornerShape(9.dp))
                 .clickable {
-                    navController.navigate(
-                        Routes.Login.route
-                    ) {
+                    navController.navigate(Routes.Login.route) {
                         popUpTo(0)
                     }
                 },
             contentAlignment = Alignment.Center
         ) {
-
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = "Sair",
                     color = Color.Black,
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Medium
                 )
-
             }
         }
     }
@@ -140,7 +102,6 @@ fun ProfessorHomeScreen(
 
 @Composable
 private fun ProfessorOptionCard(
-    icon: @Composable () -> Unit,
     text: String,
     onClick: () -> Unit
 ) {
@@ -148,27 +109,15 @@ private fun ProfessorOptionCard(
         modifier = Modifier
             .fillMaxWidth()
             .height(124.dp)
-            .shadow(
-                elevation = 4.dp,
-                shape = RoundedCornerShape(24.dp)
-            )
-            .background(
-                color = CardColor,
-                shape = RoundedCornerShape(24.dp)
-            )
-            .clickable {
-                onClick()
-            },
+            .shadow(4.dp, RoundedCornerShape(24.dp))
+            .background(CardColor, RoundedCornerShape(24.dp))
+            .clickable(onClick = onClick),
         contentAlignment = Alignment.Center
     ) {
-
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-
-            icon()
-
             Text(
                 text = text,
                 color = White.copy(alpha = 0.90f),
