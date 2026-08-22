@@ -41,7 +41,7 @@ fun AppNavHost(
             TurmasScreen(navController = navController)
         }
         composable(Routes.UnidadeCurricular.route) {
-            UnidadeCurricularScreen()
+            UnidadeCurricularScreen(navController = navController)
         }
     }
 }
