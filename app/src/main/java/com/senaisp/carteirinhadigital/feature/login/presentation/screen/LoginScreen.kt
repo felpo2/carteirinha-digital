@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -33,9 +34,13 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.senaisp.carteirinhadigital.R
 import com.senaisp.carteirinhadigital.app.navigation.Routes
+import com.senaisp.carteirinhadigital.feature.login.presentation.LoginViewModel
 
 private val Background = Color(0xFF282828)
 private val White = Color(0xFFF3F3F3)
@@ -44,10 +49,13 @@ private val TextWhite = Color.White.copy(alpha = 0.85f)
 
 @Composable
 fun LoginScreen(
-    navController: NavHostController,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navController: NavController = NavController(
+        LocalContext.current
+    ),
+    viewModel: LoginViewModel = viewModel()
 ) {
-
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     var email by remember {
         mutableStateOf("")
     }
