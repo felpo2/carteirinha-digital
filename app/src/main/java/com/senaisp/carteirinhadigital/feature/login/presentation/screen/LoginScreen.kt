@@ -18,6 +18,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,6 +41,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.senaisp.carteirinhadigital.R
 import com.senaisp.carteirinhadigital.app.navigation.Routes
+import com.senaisp.carteirinhadigital.feature.login.domain.model.UsuarioLogado
+import com.senaisp.carteirinhadigital.feature.login.presentation.LoginEvent
 import com.senaisp.carteirinhadigital.feature.login.presentation.LoginViewModel
 
 private val Background = Color(0xFF282828)
@@ -53,9 +56,18 @@ fun LoginScreen(
     navController: NavController = NavController(
         LocalContext.current
     ),
-    viewModel: LoginViewModel = viewModel()
+    viewModel: LoginViewModel = viewModel(),
+    onLoginSucesso:(UsuarioLogado)-> Unit = {}
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(uiState.usuarioLogado) {
+        uiState.usuarioLogado?.let {
+            usuario ->
+            viewModel.onEvent(LoginEvent.OnNavegacaoRealizada)
+            onLoginSucesso(usuario)
+        }
+    }
     var email by remember {
         mutableStateOf("")
     }
@@ -134,10 +146,9 @@ fun LoginScreen(
             )
 
             OutlinedTextField(
-                value = email,
-                onValueChange = {
-                    email = it
-                    loginError = false
+                value = ui.State.email,
+                onValueChange = { value ->
+                    viewModel.onEvent(LoginEvent.OnSenhaChange(value))
                 },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,

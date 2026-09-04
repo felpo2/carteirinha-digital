@@ -14,4 +14,6 @@ sealed class Routes (val route: String){
 
     data object ProfessorHomeScreen : Routes("professorHomeScreen")
 
+    data object HomeScreen : Routes("homescreen")
+
 }

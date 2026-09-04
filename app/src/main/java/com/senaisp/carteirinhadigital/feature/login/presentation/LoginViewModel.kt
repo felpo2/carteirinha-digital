@@ -1,8 +1,5 @@
 package com.senaisp.carteirinhadigital.feature.login.presentation
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.room.util.copy
 import com.senaisp.carteirinhadigital.feature.login.data.repository.FakeLoginRepositoryImpl
 import com.senaisp.carteirinhadigital.feature.login.data.repository.LoginRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -10,6 +7,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+
 
 class LoginViewModel(
     private val repository: LoginRepository = FakeLoginRepositoryImpl()
@@ -95,5 +95,4 @@ class LoginViewModel(
     }
 
 
-}
 }

@@ -2,7 +2,7 @@ package com.senaisp.carteirinhadigital.feature.login.presentation
 
 import com.senaisp.carteirinhadigital.feature.login.domain.model.UsuarioLogado
 
-class LoginUIState (
+data class LoginUIState (
     val usuario:String = "",
     val senha:String = "",
     val erroMessage:String? = null,
