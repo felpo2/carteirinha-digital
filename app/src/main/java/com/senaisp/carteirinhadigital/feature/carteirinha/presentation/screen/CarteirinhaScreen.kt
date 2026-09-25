@@ -31,6 +31,7 @@ import androidx.navigation.NavController
 import com.senaisp.carteirinhadigital.R
 import com.senaisp.carteirinhadigital.core.designsystem.theme.appFontFamily
 import com.senaisp.carteirinhadigital.feature.carteirinha.presentation.component.QrCode
+import com.senaisp.carteirinhadigital.feature.login.domain.model.UsuarioLogado
 
 private val Background = Color(0xFF282828)
 private val White = Color(0xFFFFFFFF)
@@ -39,6 +40,7 @@ private val ChipColor = Color(0x36ADADAD)
 @Composable
 fun CarteirinhaScreen(
     navController: NavController,
+    aluno: UsuarioLogado,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -92,7 +94,7 @@ fun CarteirinhaScreen(
 
             // Nome
             Text(
-                text = "Felipe Thomaz A. Mikalauskas",
+                text = aluno.nome,
                 color = White,
                 fontSize = 23.sp,
                 fontFamily = appFontFamily,
@@ -110,12 +112,12 @@ fun CarteirinhaScreen(
             ) {
 
                 InfoChip(
-                    text = "Dev. de Sistemas",
+                    text = aluno.curso,
                     modifier = Modifier.weight(1f)
                 )
 
                 InfoChip(
-                    text = "2DEVEST-B",
+                    text = aluno.turma,
                     modifier = Modifier.weight(1f)
                 )
             }
@@ -125,7 +127,7 @@ fun CarteirinhaScreen(
             )
 
             QrCode(
-                conteudo = "jkhgkgfhgf"
+                conteudo = aluno.id
             )
         }
     }

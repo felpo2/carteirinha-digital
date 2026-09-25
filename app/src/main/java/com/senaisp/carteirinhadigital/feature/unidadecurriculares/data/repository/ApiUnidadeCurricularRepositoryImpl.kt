@@ -3,7 +3,7 @@ package com.senaisp.carteirinhadigital.feature.unidadecurriculares.data.reposito
 import com.senaisp.carteirinhadigital.feature.unidadecurriculares.data.remote.service.UnidadeCurricularApi
 import com.senaisp.carteirinhadigital.feature.unidadecurriculares.domain.model.UnidadeCurricular
 import com.senaisp.carteirinhadigital.feature.unidadecurriculares.domain.repository.UnidadeCurricularRepository
-import okio.IOException
+import java.io.IOException
 import retrofit2.HttpException
 
 class ApiUnidadeCurricularRepositoryImpl(
@@ -18,13 +18,13 @@ class ApiUnidadeCurricularRepositoryImpl(
             throw when(throwable){
                 is HttpException ->{
                     if (throwable.code()==401){
-                        IllegalStateException("Sua sessão expirou. Faça logn novamente")
+                        IllegalStateException("Sua sessão expirou. Faça login novamente.")
                     }else{
                         IllegalStateException("Erro ao carregar unidades curriculares (${throwable.code()})")
                     }
                 }
                 is IOException ->
-                    IllegalStateException("Não foi possivel conectar na API")
+                    IllegalStateException("Não foi possível conectar à API.")
                 else ->
                     IllegalStateException(throwable.message ?: "Erro ao carregar unidades curriculares")
             }

@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -12,7 +13,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,7 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.senaisp.carteirinhadigital.feature.unidadecurriculares.data.dataSource
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.senaisp.carteirinhadigital.feature.unidadecurriculares.presentation.UnidadeCurricularViewModel
 import com.senaisp.carteirinhadigital.feature.unidadecurriculares.presentation.component.UnidadeCurricularCard
 
@@ -37,6 +42,9 @@ fun UnidadeCurricularScreen(
     navController: NavController? = null,
     viewModel: UnidadeCurricularViewModel
 ) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    LaunchedEffect(viewModel) { viewModel.carregar() }
+
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -83,7 +91,7 @@ fun UnidadeCurricularScreen(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "APROVADO",
+                text = "${uiState.listaUnidadesCurriculares.size} disciplinas",
                 color = Approved,
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Medium
@@ -100,15 +108,28 @@ fun UnidadeCurricularScreen(
                 .background(Container)
                 .shadow(4.dp, RoundedCornerShape(20.dp))
         ) {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(top = 28.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(28.dp)
-            ) {
-                items(dataSource()) { unidadeCurricular ->
-                    UnidadeCurricularCard(unidadeCurricular = unidadeCurricular)
+            when {
+                uiState.isLoading -> CircularProgressIndicator(Modifier.align(Alignment.Center), color = Color.White)
+                uiState.errorMessage != null -> Column(
+                    modifier = Modifier.align(Alignment.Center).padding(20.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(uiState.errorMessage!!, color = Color.White)
+                    Button(onClick = viewModel::carregar) { Text("Tentar novamente") }
+                }
+                uiState.listaUnidadesCurriculares.isEmpty() -> Text(
+                    "Nenhuma unidade curricular encontrada.",
+                    color = Color.White,
+                    modifier = Modifier.align(Alignment.Center).padding(20.dp)
+                )
+                else -> LazyColumn(
+                    modifier = Modifier.fillMaxSize().padding(top = 28.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(28.dp)
+                ) {
+                    items(uiState.listaUnidadesCurriculares, key = { it.id }) { unidadeCurricular ->
+                        UnidadeCurricularCard(unidadeCurricular = unidadeCurricular)
+                    }
                 }
             }
         }

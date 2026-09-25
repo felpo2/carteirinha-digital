@@ -1,6 +1,7 @@
 package com.senaisp.carteirinhadigital.app.di
 
 import com.senaisp.carteirinhadigital.core.auth.AuthTokenStore
+import com.senaisp.carteirinhadigital.BuildConfig
 import com.senaisp.carteirinhadigital.core.auth.InMemoryAuthTokenStore
 import com.senaisp.carteirinhadigital.core.network.NetworkClient
 import com.senaisp.carteirinhadigital.feature.login.data.remote.service.AuthApi
@@ -15,10 +16,10 @@ import kotlin.getValue
 class DefaultAppContainer : AppContainer {
 
     override val authTokenStore: AuthTokenStore = InMemoryAuthTokenStore()
-    private val publicNetworkClient = NetworkClient(baseUrl = BASE_URL)
+    private val publicNetworkClient = NetworkClient(baseUrl = BuildConfig.API_BASE_URL)
 
     private val authenticatedNetworkClient = NetworkClient(
-        baseUrl = BASE_URL,
+        baseUrl = BuildConfig.API_BASE_URL,
         authTokenStore = authTokenStore
     )
 
@@ -51,7 +52,6 @@ class DefaultAppContainer : AppContainer {
 
 
     companion object {
-        private const val BASE_URL ="http://10.0.2.2:8080/"
         private const val USE_FAKE_LOGIN_REPOSITORY =false
     }
 }

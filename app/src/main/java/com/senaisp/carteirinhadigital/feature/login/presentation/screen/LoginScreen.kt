@@ -20,27 +20,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import com.senaisp.carteirinhadigital.R
-import com.senaisp.carteirinhadigital.app.navigation.Routes
 import com.senaisp.carteirinhadigital.feature.login.domain.model.UsuarioLogado
 import com.senaisp.carteirinhadigital.feature.login.presentation.LoginEvent
 import com.senaisp.carteirinhadigital.feature.login.presentation.LoginViewModel
@@ -53,35 +44,17 @@ private val TextWhite = Color.White.copy(alpha = 0.85f)
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
-    navController: NavController = NavController(
-        LocalContext.current
-    ),
-    viewModel: LoginViewModel = viewModel(),
-    onLoginSucesso:(UsuarioLogado)-> Unit = {}
+    viewModel: LoginViewModel,
+    onProfessorClick: () -> Unit,
+    onLoginSucesso: (UsuarioLogado) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(uiState.usuarioLogado) {
-        uiState.usuarioLogado?.let {
-            usuario ->
+        uiState.usuarioLogado?.let { usuario ->
             viewModel.onEvent(LoginEvent.OnNavegacaoRealizada)
             onLoginSucesso(usuario)
         }
-    }
-    var email by remember {
-        mutableStateOf("")
-    }
-
-    var password by remember {
-        mutableStateOf("")
-    }
-
-    var passwordVisible by remember {
-        mutableStateOf(false)
-    }
-
-    var loginError by remember {
-        mutableStateOf(false)
     }
 
     Column(
@@ -121,7 +94,7 @@ fun LoginScreen(
         )
 
         Text(
-            text = "Faça o login como Aluno ou Professor",
+            text = "Acesse sua conta de aluno",
             color = Color.White.copy(alpha = 0.74f),
             style = MaterialTheme.typography.bodySmall
         )
@@ -146,9 +119,9 @@ fun LoginScreen(
             )
 
             OutlinedTextField(
-                value = ui.State.email,
+                value = uiState.usuario,
                 onValueChange = { value ->
-                    viewModel.onEvent(LoginEvent.OnSenhaChange(value))
+                    viewModel.onEvent(LoginEvent.OnUsuarioChange(value))
                 },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
@@ -186,19 +159,11 @@ fun LoginScreen(
             )
 
             OutlinedTextField(
-                value = password,
-                onValueChange = {
-                    password = it
-                    loginError = false
-                },
+                value = uiState.senha,
+                onValueChange = { viewModel.onEvent(LoginEvent.OnSenhaChange(it)) },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
-                visualTransformation =
-                    if (passwordVisible) {
-                        VisualTransformation.None
-                    } else {
-                        PasswordVisualTransformation()
-                    },
+                visualTransformation = PasswordVisualTransformation(),
                 colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = Border,
                     unfocusedBorderColor = Border,
@@ -217,9 +182,9 @@ fun LoginScreen(
             modifier = Modifier.height(12.dp)
         )
 
-        if (loginError) {
+        uiState.erroMessage?.let { error ->
             Text(
-                text = "E-mail ou senha incorretos.",
+                text = error,
                 color = Color(0xFFFF6B6B),
                 style = MaterialTheme.typography.bodySmall
             )
@@ -231,31 +196,8 @@ fun LoginScreen(
 
         // Botão Entrar
         Button(
-            onClick = {
-
-                when {
-                    email == "aluno@senai.com" &&
-                            password == "123456" -> {
-
-                        navController.navigate(
-                            Routes.Home.route
-                        )
-                    }
-
-                    email == "professor@senai.com" &&
-                            password == "123456" -> {
-
-                        navController.navigate(
-                            Routes.ProfessorHomeScreen.route
-                        )
-                    }
-
-                    else -> {
-                        loginError = true
-                    }
-                }
-
-            },
+            onClick = { viewModel.onEvent(LoginEvent.OnEntrarClick) },
+            enabled = !uiState.isLoading,
             modifier = Modifier
                 .fillMaxWidth()
                 .height(42.dp),
@@ -266,33 +208,24 @@ fun LoginScreen(
             )
         ) {
 
-            Text(
-                text = "Entrar",
-                style = MaterialTheme.typography.titleMedium,
-                color = Color.Black
-            )
+            if (uiState.isLoading) {
+                CircularProgressIndicator(modifier = Modifier.size(24.dp), color = Color.Black)
+            } else {
+                Text(text = "Entrar", style = MaterialTheme.typography.titleMedium, color = Color.Black)
+                Text(text = "›", modifier = Modifier.padding(start = 5.dp), fontSize = 25.sp, color = Color.Black)
+            }
+        }
 
-            Text(
-                text = "›",
-                modifier = Modifier.padding(start = 5.dp),
-                fontSize = 25.sp,
-                color = Color.Black
-            )
+        Button(
+            onClick = onProfessorClick,
+            modifier = Modifier.fillMaxWidth().padding(top = 12.dp),
+            colors = ButtonDefaults.textButtonColors(contentColor = White)
+        ) {
+            Text("Entrar como professor")
         }
 
         Spacer(
             modifier = Modifier.weight(1f)
         )
     }
-}
-
-@Preview(
-    showBackground = true,
-    showSystemUi = true,
-    widthDp = 390,
-    heightDp = 844
-)
-@Composable
-fun LoginScreenPreview() {
-    // Preview sem navegação
 }

@@ -1,6 +1,7 @@
 package com.senaisp.carteirinhadigital.core.network
 
 import com.senaisp.carteirinhadigital.core.auth.AuthTokenStore
+import com.senaisp.carteirinhadigital.BuildConfig
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -22,7 +23,7 @@ class NetworkClient(
         HttpLoggingInterceptor()
             .apply {
                 redactHeader("Authorization")
-                level = HttpLoggingInterceptor.Level.BODY
+                level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BASIC else HttpLoggingInterceptor.Level.NONE
             }
 
     private val okHttpClient =

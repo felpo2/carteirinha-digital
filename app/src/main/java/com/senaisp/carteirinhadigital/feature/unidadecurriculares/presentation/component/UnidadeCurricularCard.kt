@@ -31,7 +31,7 @@ fun UnidadeCurricularCard(
     Column(
         modifier = modifier
             .width(266.dp)
-            .height(138.dp)
+            .height(163.dp)
             .background(CardColor, RoundedCornerShape(11.dp))
             .padding(horizontal = 22.dp, vertical = 10.dp),
         verticalArrangement = Arrangement.spacedBy(2.dp)
@@ -60,14 +60,19 @@ fun UnidadeCurricularCard(
             horizontalArrangement = Arrangement.spacedBy(17.dp)
         ) {
             UnidadeCurricularStat(
-                label = "Presença",
-                value = "${unidadeCurricular.presenca}%"
+                label = "Faltas",
+                value = unidadeCurricular.faltas.toString()
             )
             UnidadeCurricularStat(
                 label = "Nota",
                 value = formatNota(unidadeCurricular.media)
             )
         }
+        Text(
+            text = "N1: ${formatNota(unidadeCurricular.nota1)}   N2: ${formatNota(unidadeCurricular.nota2)}",
+            fontSize = 13.sp,
+            color = SecondaryText
+        )
     }
 }
 

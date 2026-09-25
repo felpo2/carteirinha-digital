@@ -8,6 +8,4 @@ data class UnidadeCurricular(
     val nota2: Double,
     val media: Double,
     val faltas: Int
-) {
-    val presenca: String
-}
+)

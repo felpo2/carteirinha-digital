@@ -1,6 +1,5 @@
 package com.senaisp.carteirinhadigital.feature.login.presentation
 
-import com.senaisp.carteirinhadigital.feature.login.data.repository.FakeLoginRepositoryImpl
 import com.senaisp.carteirinhadigital.feature.login.data.repository.LoginRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,7 +11,7 @@ import androidx.lifecycle.viewModelScope
 
 
 class LoginViewModel(
-    private val repository: LoginRepository = FakeLoginRepositoryImpl()
+    private val repository: LoginRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(LoginUIState())

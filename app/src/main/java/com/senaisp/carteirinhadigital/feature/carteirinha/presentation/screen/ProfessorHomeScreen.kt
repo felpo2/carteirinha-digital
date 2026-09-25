@@ -1,4 +1,4 @@
-/*package com.senaisp.carteirinhadigital.feature.professor.presentation.screen
+package com.senaisp.carteirinhadigital.feature.carteirinha.presentation.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -31,6 +31,7 @@ private val White = Color(0xFFF3F3F3)
 @Composable
 fun ProfessorHomeScreen(
     navController: NavController,
+    onSair: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -40,7 +41,7 @@ fun ProfessorHomeScreen(
             .padding(start = 32.dp, end = 32.dp, top = 65.dp, bottom = 64.dp)
     ) {
         Text(
-            text = "Seja bem-vindo, Felipe",
+            text = "Seja bem-vindo",
             color = Color.White,
             fontSize = 23.sp,
             fontWeight = FontWeight.Medium
@@ -70,7 +71,7 @@ fun ProfessorHomeScreen(
             }
             Spacer(modifier = Modifier.height(30.dp))
             ProfessorOptionCard(text = "Unidades Curriculares") {
-                navController.navigate(Routes.ProfessorUnidadeCurricular.route)
+                navController.navigate(Routes.ProfessorUC.route)
             }
         }
 
@@ -81,11 +82,7 @@ fun ProfessorHomeScreen(
                 .fillMaxWidth()
                 .height(42.dp)
                 .background(White, RoundedCornerShape(9.dp))
-                .clickable {
-                    navController.navigate(Routes.Login.route) {
-                        popUpTo(0)
-                    }
-                },
+                .clickable(onClick = onSair),
             contentAlignment = Alignment.Center
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -126,4 +123,4 @@ private fun ProfessorOptionCard(
             )
         }
     }
-}*/
+}

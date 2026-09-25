@@ -30,7 +30,9 @@ private val White = Color(0xFFF3F3F3)
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    navController: NavController
+    navController: NavController,
+    nomeAluno: String,
+    onSair: () -> Unit
 ) {
     Column(
         modifier = modifier
@@ -45,7 +47,7 @@ fun HomeScreen(
     ) {
 
         Text(
-            text = "Seja bem-vindo, Felipe",
+            text = "Seja bem-vindo, $nomeAluno",
             color = Color.White,
             fontSize = 23.sp,
             fontWeight = FontWeight.Medium
@@ -103,15 +105,7 @@ fun HomeScreen(
 
         Spacer(modifier = Modifier.weight(1f))
 
-        ExitButton(
-            onClick = {
-                navController.navigate(
-                    Routes.Login.route
-                ) {
-                    popUpTo(0)
-                }
-            }
-        )
+        ExitButton(onClick = onSair)
     }
 }
 
