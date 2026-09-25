@@ -95,7 +95,7 @@ fun HomeScreen(
                 text = "Unidades Curriculares",
                 onClick = {
                     navController.navigate(
-                        Routes.UnidadeCurricular.route
+                        Routes.UCAluno.route
                     )
                 }
             )

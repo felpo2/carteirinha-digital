@@ -1,4 +1,4 @@
-package com.senaisp.carteirinhadigital.feature.professor.presentation.screen
+/*package com.senaisp.carteirinhadigital.feature.professor.presentation.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -126,4 +126,4 @@ private fun ProfessorOptionCard(
             )
         }
     }
-}
+}*/
