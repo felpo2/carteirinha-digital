@@ -14,6 +14,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.senaisp.carteirinhadigital.app.session.SessionViewModel
 import com.senaisp.carteirinhadigital.app.di.AppContainer
+import com.senaisp.carteirinhadigital.app.ui.AppShell
 import com.senaisp.carteirinhadigital.feature.carteirinha.presentation.screen.CarteirinhaScreen
 import com.senaisp.carteirinhadigital.feature.home_aluno.presentation.screen.HomeScreen
 import com.senaisp.carteirinhadigital.feature.login.presentation.LoginViewModel

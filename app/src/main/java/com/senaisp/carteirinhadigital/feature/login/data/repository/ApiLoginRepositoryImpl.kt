@@ -1,9 +1,10 @@
 package com.senaisp.carteirinhadigital.feature.login.data.repository
 
+import com.senaisp.carteirinhadigital.feature.login.domain.model.UsuarioLogado
 import com.senaisp.carteirinhadigital.feature.login.data.remote.dto.ErrorResponseDto
 import com.senaisp.carteirinhadigital.feature.login.data.remote.dto.LoginRequestDto
 import com.senaisp.carteirinhadigital.feature.login.data.remote.service.AuthApi
-import com.senaisp.carteirinhadigital.feature.login.domain.model.UsuarioLogado
+import com.senaisp.carteirinhadigital.feature.login.domain.repository.LoginRepository
 import kotlinx.serialization.json.Json
 import retrofit2.HttpException
 import java.io.IOException
