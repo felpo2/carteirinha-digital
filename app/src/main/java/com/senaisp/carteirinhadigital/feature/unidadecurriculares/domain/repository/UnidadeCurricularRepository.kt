@@ -3,5 +3,5 @@ package com.senaisp.carteirinhadigital.feature.unidadecurriculares.domain.reposi
 import com.senaisp.carteirinhadigital.feature.unidadecurriculares.domain.model.UnidadeCurricular
 
 interface UnidadeCurricularRepository {
-    suspend fun listarUnidadesCurriculares(): Result<List<UnidadeCurricular>>
+    suspend fun listar():Result<List<UnidadeCurricular>>
 }

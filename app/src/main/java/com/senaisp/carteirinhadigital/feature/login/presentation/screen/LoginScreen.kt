@@ -36,196 +36,24 @@ import com.senaisp.carteirinhadigital.feature.login.domain.model.UsuarioLogado
 import com.senaisp.carteirinhadigital.feature.login.presentation.LoginEvent
 import com.senaisp.carteirinhadigital.feature.login.presentation.LoginViewModel
 
-private val Background = Color(0xFF282828)
-private val White = Color(0xFFF3F3F3)
-private val Border = Color(0xFF969696)
-private val TextWhite = Color.White.copy(alpha = 0.85f)
-
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
-    viewModel: LoginViewModel,
-    onProfessorClick: () -> Unit,
-    onLoginSucesso: (UsuarioLogado) -> Unit
+    onLoginSucesso: (UsuarioLogado)->Unit,
+    viewModel: LoginViewModel
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(uiState.usuarioLogado) {
-        uiState.usuarioLogado?.let { usuario ->
+        uiState.usuarioLogado?.let{ usuario->
             viewModel.onEvent(LoginEvent.OnNavegacaoRealizada)
             onLoginSucesso(usuario)
         }
     }
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(Background)
-            .padding(horizontal = 45.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-
-        Spacer(
-            modifier = Modifier.weight(1f)
-        )
-
-        // Logo SENAI
-        Image(
-            painter = painterResource(
-                id = R.drawable.senai_logo
-            ),
-            contentDescription = "SENAI",
-            modifier = Modifier
-                .size(
-                    width = 206.dp,
-                    height = 55.dp
-                ),
-            contentScale = ContentScale.Fit
-        )
-
-        Spacer(
-            modifier = Modifier.height(24.dp)
-        )
-
-        Text(
-            text = "Portal Educacional",
-            color = Color.White,
-            style = MaterialTheme.typography.titleLarge
-        )
-
-        Text(
-            text = "Acesse sua conta de aluno",
-            color = Color.White.copy(alpha = 0.74f),
-            style = MaterialTheme.typography.bodySmall
-        )
-
-        Spacer(
-            modifier = Modifier.height(70.dp)
-        )
-
-        // E-mail
-        Column(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-
-            Text(
-                text = "E-mail",
-                color = TextWhite,
-                style = MaterialTheme.typography.titleMedium
-            )
-
-            Spacer(
-                modifier = Modifier.height(3.dp)
-            )
-
-            OutlinedTextField(
-                value = uiState.usuario,
-                onValueChange = { value ->
-                    viewModel.onEvent(LoginEvent.OnUsuarioChange(value))
-                },
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true,
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = Border,
-                    unfocusedBorderColor = Border,
-                    focusedTextColor = Color.White,
-                    unfocusedTextColor = Color.White,
-                    cursorColor = Color.White
-                ),
-                shape = RoundedCornerShape(8.dp),
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Email
-                )
-            )
-        }
-
-        Spacer(
-            modifier = Modifier.height(23.dp)
-        )
-
-        // Senha
-        Column(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-
-            Text(
-                text = "Senha",
-                color = TextWhite,
-                style = MaterialTheme.typography.titleMedium
-            )
-
-            Spacer(
-                modifier = Modifier.height(3.dp)
-            )
-
-            OutlinedTextField(
-                value = uiState.senha,
-                onValueChange = { viewModel.onEvent(LoginEvent.OnSenhaChange(it)) },
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true,
-                visualTransformation = PasswordVisualTransformation(),
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = Border,
-                    unfocusedBorderColor = Border,
-                    focusedTextColor = Color.White,
-                    unfocusedTextColor = Color.White,
-                    cursorColor = Color.White
-                ),
-                shape = RoundedCornerShape(8.dp),
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Password
-                )
-            )
-        }
-
-        Spacer(
-            modifier = Modifier.height(12.dp)
-        )
-
-        uiState.erroMessage?.let { error ->
-            Text(
-                text = error,
-                color = Color(0xFFFF6B6B),
-                style = MaterialTheme.typography.bodySmall
-            )
-        }
-
-        Spacer(
-            modifier = Modifier.height(24.dp)
-        )
-
-        // Botão Entrar
-        Button(
-            onClick = { viewModel.onEvent(LoginEvent.OnEntrarClick) },
-            enabled = !uiState.isLoading,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(42.dp),
-            shape = RoundedCornerShape(8.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = White,
-                contentColor = Color.Black
-            )
-        ) {
-
-            if (uiState.isLoading) {
-                CircularProgressIndicator(modifier = Modifier.size(24.dp), color = Color.Black)
-            } else {
-                Text(text = "Entrar", style = MaterialTheme.typography.titleMedium, color = Color.Black)
-                Text(text = "›", modifier = Modifier.padding(start = 5.dp), fontSize = 25.sp, color = Color.Black)
-            }
-        }
-
-        Button(
-            onClick = onProfessorClick,
-            modifier = Modifier.fillMaxWidth().padding(top = 12.dp),
-            colors = ButtonDefaults.textButtonColors(contentColor = White)
-        ) {
-            Text("Entrar como professor")
-        }
-
-        Spacer(
-            modifier = Modifier.weight(1f)
-        )
-    }
+    LoginContent(
+        uiState = uiState,
+        onEvent = viewModel::onEvent,
+        modifier = modifier.fillMaxSize()
+    )
 }
