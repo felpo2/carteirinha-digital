@@ -45,7 +45,7 @@ class DefaultAppContainer : AppContainer {
         )
     }
     companion object {
-        private const val BASE_URL = "http://10.0.2.2:8080/"
+        private val BASE_URL = com.senaisp.carteirinhadigital.BuildConfig.API_BASE_URL
         private const val USE_FAKE_LOGIN_REPOSITORY = false
     }
 }

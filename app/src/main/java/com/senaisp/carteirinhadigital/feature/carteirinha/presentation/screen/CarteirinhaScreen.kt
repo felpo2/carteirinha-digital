@@ -127,7 +127,7 @@ fun CarteirinhaScreen(
             )
 
             QrCode(
-                conteudo = aluno.id
+                conteudo = aluno.matricula
             )
         }
     }

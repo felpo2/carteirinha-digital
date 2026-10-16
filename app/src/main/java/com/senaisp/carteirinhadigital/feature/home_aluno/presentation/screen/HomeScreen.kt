@@ -17,7 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.senaisp.carteirinhadigital.app.navigation.Routes
+import com.senaisp.carteirinhadigital.app.navigation.aluno.AlunoRoutes
 import com.senaisp.carteirinhadigital.core.designsystem.theme.CarteirinhaDigital
 import com.senaisp.carteirinhadigital.feature.home_aluno.presentation.component.BotaoNavegacao
 import com.senaisp.carteirinhadigital.feature.login.domain.model.UsuarioLogado
@@ -74,7 +74,7 @@ fun HomeScreen(
             BotaoNavegacao(
                 text = "Carteirinha",
                 onClick = {
-                    navController.navigate(Routes.Carteirinha.route)
+                    navController.navigate(AlunoRoutes.CARTEIRINHA)
                 },
                 modifier = Modifier.fillMaxWidth()
             )
@@ -82,7 +82,7 @@ fun HomeScreen(
             BotaoNavegacao(
                 text = "Unidades Curriculares",
                 onClick = {
-                    navController.navigate(Routes.UCAluno.route)
+                    navController.navigate(AlunoRoutes.UNIDADES_CURRICULARES)
                 },
                 modifier = Modifier.fillMaxWidth()
             )
@@ -104,6 +104,7 @@ fun HomeScreenPreview() {
                 matricula = "2026000001",
                 curso = "Desenvolvimento de Sistemas",
                 turma = "2DEVEST-A",
+                perfil = com.senaisp.carteirinhadigital.feature.login.domain.model.PerfilAcesso.ALUNO,
                 token = "token"
             )
         )

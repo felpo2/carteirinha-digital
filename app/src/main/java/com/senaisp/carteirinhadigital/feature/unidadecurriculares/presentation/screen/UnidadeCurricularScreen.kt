@@ -91,7 +91,7 @@ fun UnidadeCurricularScreen(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "${uiState.listaUnidadesCurriculares.size} disciplinas",
+                text = "${uiState.unidades.size} disciplinas",
                 color = Approved,
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Medium
@@ -117,7 +117,7 @@ fun UnidadeCurricularScreen(
                     Text(uiState.errorMessage!!, color = Color.White)
                     Button(onClick = viewModel::carregar) { Text("Tentar novamente") }
                 }
-                uiState.listaUnidadesCurriculares.isEmpty() -> Text(
+                uiState.unidades.isEmpty() -> Text(
                     "Nenhuma unidade curricular encontrada.",
                     color = Color.White,
                     modifier = Modifier.align(Alignment.Center).padding(20.dp)
@@ -127,7 +127,7 @@ fun UnidadeCurricularScreen(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(28.dp)
                 ) {
-                    items(uiState.listaUnidadesCurriculares, key = { it.id }) { unidadeCurricular ->
+                    items(uiState.unidades, key = { it.id }) { unidadeCurricular ->
                         UnidadeCurricularCard(unidadeCurricular = unidadeCurricular)
                     }
                 }

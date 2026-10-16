@@ -41,7 +41,6 @@ import com.senaisp.carteirinhadigital.feature.login.presentation.LoginViewModel
 fun LoginContent(
     modifier: Modifier = Modifier,
     viewModel: LoginViewModel,
-    onProfessorClick: () -> Unit,
     onLoginSucesso: (UsuarioLogado) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -56,7 +55,7 @@ fun LoginContent(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(Background)
+            .background(Color(0xFF282828))
             .padding(horizontal = 45.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -106,7 +105,7 @@ fun LoginContent(
 
             Text(
                 text = "E-mail",
-                color = TextWhite,
+                color = Color.White,
                 style = MaterialTheme.typography.titleMedium
             )
 
@@ -122,8 +121,8 @@ fun LoginContent(
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true,
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = Border,
-                    unfocusedBorderColor = Border,
+                    focusedBorderColor = Color.Gray,
+                    unfocusedBorderColor = Color.Gray,
                     focusedTextColor = Color.White,
                     unfocusedTextColor = Color.White,
                     cursorColor = Color.White
@@ -178,7 +177,7 @@ fun LoginContent(
             modifier = Modifier.height(12.dp)
         )
 
-        uiState.erroMessage?.let { error ->
+        uiState.errorMessage?.let { error ->
             Text(
                 text = error,
                 color = Color(0xFFFF6B6B),
