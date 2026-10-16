@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,9 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.senaisp.carteirinhadigital.feature.unidadecurriculares.domain.model.UnidadeCurricular
 
-private val CardColor = Color(0xFFD9D9D9)
-private val StatColor = Color(0xFFEEEEEE)
-private val SecondaryText = Color.Black.copy(alpha = 0.62f)
 
 @Composable
 fun UnidadeCurricularCard(
@@ -32,7 +30,7 @@ fun UnidadeCurricularCard(
         modifier = modifier
             .width(266.dp)
             .height(163.dp)
-            .background(CardColor, RoundedCornerShape(11.dp))
+            .background(MaterialTheme.colorScheme.surfaceContainerHigh, RoundedCornerShape(11.dp))
             .padding(horizontal = 22.dp, vertical = 10.dp),
         verticalArrangement = Arrangement.spacedBy(2.dp)
     ) {
@@ -41,7 +39,7 @@ fun UnidadeCurricularCard(
             fontSize = 17.sp,
             lineHeight = 22.sp,
             fontWeight = FontWeight.Medium,
-            color = Color.Black,
+            color = MaterialTheme.colorScheme.onSurface,
             maxLines = 1
         )
         Text(
@@ -49,7 +47,7 @@ fun UnidadeCurricularCard(
             fontSize = 15.sp,
             lineHeight = 19.sp,
             fontWeight = FontWeight.Medium,
-            color = SecondaryText,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             maxLines = 1
         )
 
@@ -85,7 +83,7 @@ private fun UnidadeCurricularStat(
         modifier = Modifier
             .width(109.dp)
             .height(58.dp)
-            .background(StatColor, RoundedCornerShape(10.dp))
+            .background(MaterialTheme.colorScheme.surfaceContainerLow, RoundedCornerShape(10.dp))
             .padding(top = 5.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

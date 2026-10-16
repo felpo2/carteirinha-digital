@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -30,11 +31,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
-private val Background = Color(0xFF282828)
-private val Panel = Color(0xFFD9D9D9)
-private val PanelDark = Color(0xFFBFBFBF)
-private val RowDark = Color(0xFF818181)
-private val White = Color.White
 
 @Composable
 fun TurmasScreen(
@@ -45,7 +41,7 @@ fun TurmasScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Background)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         Text(
             text = "‹",
@@ -53,7 +49,7 @@ fun TurmasScreen(
                 .align(Alignment.TopStart)
                 .padding(start = 17.dp, top = 14.dp)
                 .clickable { navController.popBackStack() },
-            color = White,
+            color = MaterialTheme.colorScheme.onBackground,
             fontSize = 42.sp,
             fontWeight = FontWeight.Light
         )
@@ -66,7 +62,7 @@ fun TurmasScreen(
                 .height(43.dp)
                 .shadow(4.dp, RoundedCornerShape(35.dp))
                 .clip(RoundedCornerShape(35.dp))
-                .background(Color(0xFF4B4B4B)),
+                .background(MaterialTheme.colorScheme.surfaceContainerHigh),
             contentAlignment = Alignment.Center
         ) {
             Text(
@@ -84,7 +80,7 @@ fun TurmasScreen(
                 .fillMaxWidth(0.77f)
                 .height(616.dp)
                 .clip(RoundedCornerShape(20.dp))
-                .background(Color(0xFF454545))
+                .background(MaterialTheme.colorScheme.surfaceContainer)
                 .padding(horizontal = 22.dp, vertical = 22.dp)
         ) {
             Box(
@@ -92,21 +88,21 @@ fun TurmasScreen(
                     .fillMaxWidth()
                     .height(448.dp)
                     .clip(RoundedCornerShape(11.dp))
-                    .background(Panel)
+                    .background(MaterialTheme.colorScheme.surfaceContainerHigh)
             ) {
                 Column(modifier = Modifier.fillMaxWidth()) {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(91.dp)
-                            .background(PanelDark),
+                            .background(MaterialTheme.colorScheme.surfaceContainerHighest),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
-                        Text("2DEVEST-B", fontSize = 17.sp, fontWeight = FontWeight.Medium)
-                        Text("Projeto de Software", fontSize = 15.sp, color = Color.Black.copy(alpha = .62f))
+                        Text("2DEVEST-B", fontSize = 17.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
+                        Text("Projeto de Software", fontSize = 15.sp, color = MaterialTheme.colorScheme.onSurface.copy(alpha = .62f))
                         Spacer(Modifier.height(16.dp))
-                        Text("16:00-16:45", fontSize = 15.sp, fontWeight = FontWeight.Medium)
+                        Text("16:00-16:45", fontSize = 15.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
                     }
 
                     (1..7).forEach { number ->
@@ -162,7 +158,7 @@ private fun StudentRow(
                     .padding(start = 3.dp)
                     .size(26.dp)
                     .clip(RoundedCornerShape(3.dp))
-                    .background(White),
+                    .background(MaterialTheme.colorScheme.surface),
                 contentAlignment = Alignment.Center
             ) {
                 Text(number.toString(), fontSize = 15.sp)
@@ -188,7 +184,7 @@ private fun StudentRow(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(32.dp)
-                    .background(RowDark)
+                    .background(MaterialTheme.colorScheme.surfaceVariant)
                     .padding(start = 6.dp, end = 6.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {

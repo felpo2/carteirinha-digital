@@ -35,13 +35,13 @@ fun HomeProfessorScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(FundoProfessor)
+            .background(MaterialTheme.colorScheme.background)
             .padding(horizontal = 24.dp, vertical = 28.dp),
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
         Text(
             text = "Olá, ${usuarioLogado.nome}",
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onBackground,
             style = MaterialTheme.typography.headlineSmall,
             fontWeight = FontWeight.SemiBold
         )
@@ -50,7 +50,7 @@ fun HomeProfessorScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(18.dp))
-                .background(PainelProfessor)
+                .background(MaterialTheme.colorScheme.surfaceContainer)
                 .padding(22.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
@@ -62,7 +62,7 @@ fun HomeProfessorScreen(
             )
             Text(
                 text = "Matrícula: ${usuarioLogado.matricula}",
-                color = TextoSecundario,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 style = MaterialTheme.typography.bodyMedium
             )
             Text(

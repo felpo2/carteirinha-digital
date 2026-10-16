@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
@@ -31,10 +32,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.senaisp.carteirinhadigital.feature.unidadecurriculares.presentation.UnidadeCurricularViewModel
 import com.senaisp.carteirinhadigital.feature.unidadecurriculares.presentation.component.UnidadeCurricularCard
 
-private val Background = Color(0xFF282828)
-private val Header = Color(0xFF4B4B4B)
-private val Container = Color(0xFF3F3F3F)
-private val Approved = Color(0xFF79FD82)
 
 @Composable
 fun UnidadeCurricularScreen(
@@ -48,7 +45,7 @@ fun UnidadeCurricularScreen(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(Background)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         Text(
             text = "‹",
@@ -56,7 +53,7 @@ fun UnidadeCurricularScreen(
                 .align(Alignment.TopStart)
                 .padding(start = 17.dp, top = 12.dp)
                 .clickable { navController?.popBackStack() },
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onBackground,
             fontSize = 42.sp,
             fontWeight = FontWeight.Light
         )
@@ -69,7 +66,7 @@ fun UnidadeCurricularScreen(
                 .height(43.dp)
                 .shadow(4.dp, RoundedCornerShape(35.dp))
                 .clip(RoundedCornerShape(35.dp))
-                .background(Header),
+                .background(MaterialTheme.colorScheme.surfaceContainerHigh),
             contentAlignment = Alignment.Center
         ) {
             Text(
@@ -92,7 +89,7 @@ fun UnidadeCurricularScreen(
         ) {
             Text(
                 text = "${uiState.unidades.size} disciplinas",
-                color = Approved,
+                color = MaterialTheme.colorScheme.primary,
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Medium
             )
@@ -105,7 +102,7 @@ fun UnidadeCurricularScreen(
                 .fillMaxWidth(0.796f)
                 .height(616.dp)
                 .clip(RoundedCornerShape(20.dp))
-                .background(Container)
+                .background(MaterialTheme.colorScheme.surfaceContainer)
                 .shadow(4.dp, RoundedCornerShape(20.dp))
         ) {
             when {

@@ -57,6 +57,8 @@ fun AppNavHost(
     ) {
         authNavGraph(
             loginRepository = container.loginRepository,
+            darkTheme = darkTheme,
+            onDarkThemeChange = onDarkThemeChange,
             onLoginSucesso = { usuario ->
                 sessionViewModel.setUsuarioLogado(usuario)
                 replaceGraph(

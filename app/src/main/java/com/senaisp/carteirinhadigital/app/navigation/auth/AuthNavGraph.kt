@@ -14,6 +14,8 @@ import com.senaisp.carteirinhadigital.feature.login.presentation.screen.LoginScr
 
 fun NavGraphBuilder.authNavGraph(
     loginRepository: LoginRepository,
+    darkTheme: Boolean,
+    onDarkThemeChange: (Boolean) -> Unit,
     onLoginSucesso: (UsuarioLogado) -> Unit
 ) {
     navigation(
@@ -33,7 +35,9 @@ fun NavGraphBuilder.authNavGraph(
 
             LoginScreen(
                 viewModel = loginViewModel,
-                onLoginSucesso = onLoginSucesso
+                onLoginSucesso = onLoginSucesso,
+                darkTheme = darkTheme,
+                onDarkThemeChange = onDarkThemeChange
             )
         }
     }
