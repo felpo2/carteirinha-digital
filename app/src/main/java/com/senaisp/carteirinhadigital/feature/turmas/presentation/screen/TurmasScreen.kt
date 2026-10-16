@@ -25,7 +25,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -67,7 +66,7 @@ fun TurmasScreen(
         ) {
             Text(
                 text = "Turmas",
-                color = White,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Medium
             )
@@ -124,13 +123,13 @@ fun TurmasScreen(
                     .fillMaxWidth()
                     .height(123.dp)
                     .clip(RoundedCornerShape(11.dp))
-                    .background(PanelDark),
+                    .background(MaterialTheme.colorScheme.surfaceContainerHighest),
                 contentAlignment = Alignment.BottomCenter
             ) {
                 Text(
                     text = "⌄",
                     modifier = Modifier.padding(bottom = 2.dp),
-                    color = Color.Black,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 25.sp
                 )
             }
@@ -149,7 +148,7 @@ private fun StudentRow(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(32.dp)
-                .background(Panel)
+                .background(MaterialTheme.colorScheme.surfaceContainerHigh)
                 .clickable(onClick = onClick),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -161,7 +160,7 @@ private fun StudentRow(
                     .background(MaterialTheme.colorScheme.surface),
                 contentAlignment = Alignment.Center
             ) {
-                Text(number.toString(), fontSize = 15.sp)
+                Text(number.toString(), fontSize = 15.sp, color = MaterialTheme.colorScheme.onSurface)
             }
 
             Text(
@@ -169,13 +168,15 @@ private fun StudentRow(
                 modifier = Modifier.padding(start = 17.dp).weight(1f),
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Medium,
-                maxLines = 1
+                maxLines = 1,
+                color = MaterialTheme.colorScheme.onSurface
             )
 
             Text(
                 text = if (expanded) "⌃" else "⌄",
                 modifier = Modifier.padding(end = 8.dp),
-                fontSize = 18.sp
+                fontSize = 18.sp,
+                color = MaterialTheme.colorScheme.onSurface
             )
         }
 
@@ -193,10 +194,10 @@ private fun StudentRow(
                         .width(61.dp)
                         .height(23.dp)
                         .clip(RoundedCornerShape(3.dp))
-                        .background(Panel),
+                        .background(MaterialTheme.colorScheme.surfaceContainerHigh),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("Nota", fontSize = 11.sp, color = Color.Black.copy(alpha = .25f))
+                    Text("Nota", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
 
                 Spacer(Modifier.weight(1f))
@@ -215,9 +216,9 @@ private fun SmallAction(text: String) {
         modifier = Modifier
             .size(23.dp)
             .clip(RoundedCornerShape(3.dp))
-            .background(Panel),
+            .background(MaterialTheme.colorScheme.surfaceContainerHigh),
         contentAlignment = Alignment.Center
     ) {
-        Text(text, fontSize = 20.sp)
+        Text(text, fontSize = 20.sp, color = MaterialTheme.colorScheme.onSurface)
     }
 }
