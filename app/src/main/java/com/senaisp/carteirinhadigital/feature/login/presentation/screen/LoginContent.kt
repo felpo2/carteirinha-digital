@@ -145,7 +145,7 @@ fun LoginContent(
 
             Text(
                 text = "Senha",
-                color = TextWhite,
+                color = Color.White,
                 style = MaterialTheme.typography.titleMedium
             )
 
@@ -160,8 +160,8 @@ fun LoginContent(
                 singleLine = true,
                 visualTransformation = PasswordVisualTransformation(),
                 colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = Border,
-                    unfocusedBorderColor = Border,
+                    focusedBorderColor = Color.Gray,
+                    unfocusedBorderColor = Color.Gray,
                     focusedTextColor = Color.White,
                     unfocusedTextColor = Color.White,
                     cursorColor = Color.White
