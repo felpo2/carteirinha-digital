@@ -47,16 +47,6 @@ fun UnidadeCurricularScreen(
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        Text(
-            text = "‹",
-            modifier = Modifier
-                .align(Alignment.TopStart)
-                .padding(start = 17.dp, top = 12.dp)
-                .clickable { navController?.popBackStack() },
-            color = MaterialTheme.colorScheme.onBackground,
-            fontSize = 42.sp,
-            fontWeight = FontWeight.Light
-        )
 
         Box(
             modifier = Modifier
@@ -71,7 +61,7 @@ fun UnidadeCurricularScreen(
         ) {
             Text(
                 text = "Unidades Curriculares",
-                color = Color.White,
+                color = MaterialTheme.colorScheme.primary,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Medium
             )

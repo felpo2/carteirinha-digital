@@ -91,7 +91,6 @@ fun LoginContent(
                 .padding(horizontal = 32.dp, vertical = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Fundo escuro apenas atrás da logo garante contraste no tema claro.
             Box(
                 modifier = Modifier
                     .clip(RoundedCornerShape(12.dp))

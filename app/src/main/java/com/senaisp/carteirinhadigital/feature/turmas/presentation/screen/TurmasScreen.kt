@@ -42,16 +42,6 @@ fun TurmasScreen(
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        Text(
-            text = "‹",
-            modifier = Modifier
-                .align(Alignment.TopStart)
-                .padding(start = 17.dp, top = 14.dp)
-                .clickable { navController.popBackStack() },
-            color = MaterialTheme.colorScheme.onBackground,
-            fontSize = 42.sp,
-            fontWeight = FontWeight.Light
-        )
 
         Box(
             modifier = Modifier

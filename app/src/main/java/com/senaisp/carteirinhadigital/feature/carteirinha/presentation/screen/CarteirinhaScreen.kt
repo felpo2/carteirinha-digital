@@ -50,21 +50,6 @@ fun CarteirinhaScreen(
             .background(MaterialTheme.colorScheme.background)
     ) {
 
-        Text(
-            text = "‹",
-            color = MaterialTheme.colorScheme.onBackground,
-            fontSize = 43.sp,
-            fontFamily = appFontFamily,
-            fontWeight = FontWeight.Light,
-            modifier = Modifier
-                .padding(
-                    start = 13.dp,
-                    top = 10.dp
-                )
-                .clickable {
-                    navController.popBackStack()
-                }
-        )
 
         Column(
             modifier = Modifier

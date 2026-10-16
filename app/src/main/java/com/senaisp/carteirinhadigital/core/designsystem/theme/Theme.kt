@@ -7,7 +7,6 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-// Mantém a identidade visual escura original do aplicativo.
 private val darkScheme = darkColorScheme(
     primary = primaryDark,
     onPrimary = onPrimaryDark,
@@ -44,7 +43,6 @@ private val darkScheme = darkColorScheme(
     surfaceContainerHighest = surfaceContainerHighestDark
 )
 
-// O tema claro agora possui cores próprias, sem alterar o Poppins ou o layout.
 private val lightScheme = lightColorScheme(
     primary = Color(0xFF252525),
     onPrimary = Color.White,
