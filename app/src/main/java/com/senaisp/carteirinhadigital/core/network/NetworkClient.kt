@@ -12,22 +12,27 @@ class NetworkClient(
     private val baseUrl: String,
     private val sessionTokenStore: SessionTokenStore
 ) {
-    private val json = Json { ignoreUnknownKeys = true }
-    private fun createLoggingInterceptor(): HttpLoggingInterceptor {
+    private val json = Json {
+        ignoreUnknownKeys = true
+        isLenient = true
+        coerceInputValues = true
+    }
 
+    private fun createLoggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().apply {
             redactHeader("Authorization")
             level = HttpLoggingInterceptor.Level.BODY
         }
     }
-    private val publicOkHttpClient:OkHttpClient by lazy {
 
+    private val publicOkHttpClient: OkHttpClient by lazy {
         OkHttpClient.Builder()
             .addInterceptor(
                 createLoggingInterceptor()
             ).build()
     }
-    private val authenticatedOkHttpClient:OkHttpClient by lazy {
+
+    private val authenticatedOkHttpClient: OkHttpClient by lazy {
         OkHttpClient.Builder()
             .addInterceptor(
                 AuthInterceptor(sessionTokenStore = sessionTokenStore)
@@ -47,9 +52,11 @@ class NetworkClient(
                 json.asConverterFactory("application/json".toMediaType())
             ).build()
     }
+
     fun <T : Any> createPublic(serviceClass: Class<T>): T {
         return createRetrofit(publicOkHttpClient).create(serviceClass)
     }
+
     fun <T : Any> createAuthenticated(serviceClass: Class<T>): T {
         return createRetrofit(authenticatedOkHttpClient).create(serviceClass)
     }

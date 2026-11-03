@@ -1,7 +1,6 @@
 package com.senaisp.carteirinhadigital.feature.unidadecurriculares.presentation.screen
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,10 +11,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -27,11 +26,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import com.senaisp.carteirinhadigital.feature.unidadecurriculares.presentation.UnidadeCurricularViewModel
 import com.senaisp.carteirinhadigital.feature.unidadecurriculares.presentation.component.UnidadeCurricularCard
-
 
 @Composable
 fun UnidadeCurricularScreen(
@@ -47,7 +45,6 @@ fun UnidadeCurricularScreen(
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-
         Box(
             modifier = Modifier
                 .align(Alignment.TopCenter)
@@ -96,23 +93,41 @@ fun UnidadeCurricularScreen(
                 .shadow(4.dp, RoundedCornerShape(20.dp))
         ) {
             when {
-                uiState.isLoading -> CircularProgressIndicator(Modifier.align(Alignment.Center), color = Color.White)
-                uiState.errorMessage != null -> Column(
-                    modifier = Modifier.align(Alignment.Center).padding(20.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(uiState.errorMessage!!, color = Color.White)
-                    Button(onClick = viewModel::carregar) { Text("Tentar novamente") }
-                }
-                uiState.unidades.isEmpty() -> Text(
-                    "Nenhuma unidade curricular encontrada.",
-                    color = Color.White,
-                    modifier = Modifier.align(Alignment.Center).padding(20.dp)
+                uiState.isLoading -> CircularProgressIndicator(
+                    modifier = Modifier.align(Alignment.Center),
+                    color = Color.White
                 )
-                else -> LazyColumn(
-                    modifier = Modifier.fillMaxSize().padding(top = 28.dp),
+
+                uiState.errorMessage != null -> Column(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .padding(20.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(28.dp)
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Text(
+                        text = uiState.errorMessage!!,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    Button(onClick = viewModel::carregar) {
+                        Text("Tentar novamente")
+                    }
+                }
+
+                uiState.unidades.isEmpty() -> Text(
+                    text = "Nenhuma unidade curricular encontrada.",
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .padding(20.dp)
+                )
+
+                else -> LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(top = 28.dp, start = 16.dp, end = 16.dp, bottom = 16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(20.dp)
                 ) {
                     items(uiState.unidades, key = { it.id }) { unidadeCurricular ->
                         UnidadeCurricularCard(unidadeCurricular = unidadeCurricular)

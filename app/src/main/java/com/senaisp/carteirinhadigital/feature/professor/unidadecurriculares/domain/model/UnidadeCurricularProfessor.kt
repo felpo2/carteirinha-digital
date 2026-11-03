@@ -1,9 +1,9 @@
 package com.senaisp.carteirinhadigital.feature.professor.unidadecurriculares.domain.model
 
 data class UnidadeCurricularProfessor(
-    val id: Long,
+    val id: String,
     val nome: String,
-    val turmaId: Long,
+    val turmaId: String,
     val turma: String,
     val cargaHoraria: Int,
     val quantidadeAulas: Int,

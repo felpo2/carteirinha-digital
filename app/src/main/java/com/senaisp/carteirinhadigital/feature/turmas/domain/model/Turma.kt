@@ -1,7 +1,7 @@
 package com.senaisp.carteirinhadigital.feature.turmas.domain.model
 
 data class Turma(
-    val id: Long,
+    val id: String,
     val codigo: String,
     val curso: String,
     val semestre: String,

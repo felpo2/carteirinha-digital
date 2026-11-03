@@ -1,4 +1,3 @@
-
 package com.senaisp.carteirinhadigital.feature.unidadecurriculares.presentation.component
 
 import androidx.compose.foundation.background
@@ -17,8 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import java.util.Locale
 import com.senaisp.carteirinhadigital.feature.unidadecurriculares.domain.model.UnidadeCurricular
+import java.util.Locale
 
 @Composable
 fun UnidadeCurricularCard(
@@ -34,9 +33,9 @@ fun UnidadeCurricularCard(
             )
             .padding(
                 horizontal = 22.dp,
-                vertical = 14.dp
+                vertical = 16.dp
             ),
-        verticalArrangement = Arrangement.spacedBy(6.dp)
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text(
             text = unidadeCurricular.nome,
@@ -53,14 +52,14 @@ fun UnidadeCurricularCard(
             lineHeight = 19.sp,
             fontWeight = FontWeight.Medium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
-            maxLines = 2
+            maxLines = 1
         )
 
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
+                .padding(top = 6.dp),
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             UnidadeCurricularStat(
                 label = "Faltas",
@@ -69,19 +68,33 @@ fun UnidadeCurricularCard(
             )
 
             UnidadeCurricularStat(
-                label = "Nota",
+                label = "Média",
                 value = formatNota(unidadeCurricular.media),
                 modifier = Modifier.weight(1f)
             )
         }
 
-        Text(
-            text = "N1: ${formatNota(unidadeCurricular.nota1)}   " +
-                    "N2: ${formatNota(unidadeCurricular.nota2)}",
-            fontSize = 13.sp,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.padding(top = 4.dp)
-        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 4.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Nota 1: ${formatNota(unidadeCurricular.nota1)}",
+                fontSize = 13.sp,
+                fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+
+            Text(
+                text = "Nota 2: ${formatNota(unidadeCurricular.nota2)}",
+                fontSize = 13.sp,
+                fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
     }
 }
 
@@ -98,22 +111,22 @@ private fun UnidadeCurricularStat(
                 color = MaterialTheme.colorScheme.surfaceContainerLow,
                 shape = RoundedCornerShape(10.dp)
             )
-            .padding(top = 5.dp),
+            .padding(horizontal = 6.dp, vertical = 5.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text(
             text = label,
-            fontSize = 15.sp,
-            lineHeight = 19.sp,
+            fontSize = 12.sp,
+            lineHeight = 15.sp,
             fontWeight = FontWeight.Medium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
 
         Text(
             text = value,
-            fontSize = 20.sp,
-            lineHeight = 24.sp,
+            fontSize = 16.sp,
+            lineHeight = 20.sp,
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colorScheme.onSurface
         )

@@ -1,53 +1,55 @@
 package com.senaisp.carteirinhadigital.feature.turmas.presentation.screen
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-
+import com.senaisp.carteirinhadigital.feature.turmas.presentation.TurmasViewModel
+import com.senaisp.carteirinhadigital.feature.turmas.presentation.component.TurmaCard
 
 @Composable
 fun TurmasScreen(
-    navController: NavController
+    modifier: Modifier = Modifier,
+    navController: NavController? = null,
+    viewModel: TurmasViewModel
 ) {
-    var selectedStudent by remember { mutableStateOf<Int?>(null) }
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    LaunchedEffect(viewModel) { viewModel.carregar() }
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-
         Box(
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .padding(top = 62.dp)
-                .fillMaxWidth(0.80f)
+                .fillMaxWidth(0.832f)
                 .height(43.dp)
                 .shadow(4.dp, RoundedCornerShape(35.dp))
                 .clip(RoundedCornerShape(35.dp))
@@ -55,160 +57,83 @@ fun TurmasScreen(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "Turmas",
-                color = MaterialTheme.colorScheme.onSurface,
+                text = "Minhas Turmas",
+                color = MaterialTheme.colorScheme.primary,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Medium
             )
         }
 
-        Column(
+        Box(
             modifier = Modifier
                 .align(Alignment.TopCenter)
-                .padding(top = 150.dp)
-                .fillMaxWidth(0.77f)
+                .padding(top = 152.dp)
+                .fillMaxWidth(0.796f)
+                .height(62.dp)
+                .clip(RoundedCornerShape(17.dp))
+                .background(Color.White.copy(alpha = 0.08f)),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "${uiState.turmas.size} turmas",
+                color = MaterialTheme.colorScheme.primary,
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Medium
+            )
+        }
+
+        Box(
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .padding(top = 251.dp)
+                .fillMaxWidth(0.796f)
                 .height(616.dp)
                 .clip(RoundedCornerShape(20.dp))
                 .background(MaterialTheme.colorScheme.surfaceContainer)
-                .padding(horizontal = 22.dp, vertical = 22.dp)
+                .shadow(4.dp, RoundedCornerShape(20.dp))
         ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(448.dp)
-                    .clip(RoundedCornerShape(11.dp))
-                    .background(MaterialTheme.colorScheme.surfaceContainerHigh)
-            ) {
-                Column(modifier = Modifier.fillMaxWidth()) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(91.dp)
-                            .background(MaterialTheme.colorScheme.surfaceContainerHighest),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        Text("2DEVEST-B", fontSize = 17.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
-                        Text("Projeto de Software", fontSize = 15.sp, color = MaterialTheme.colorScheme.onSurface.copy(alpha = .62f))
-                        Spacer(Modifier.height(16.dp))
-                        Text("16:00-16:45", fontSize = 15.sp, fontWeight = FontWeight.Medium, color = MaterialTheme.colorScheme.onSurface)
-                    }
-
-                    (1..7).forEach { number ->
-                        StudentRow(
-                            number = number,
-                            expanded = selectedStudent == number,
-                            onClick = {
-                                selectedStudent = if (selectedStudent == number) null else number
-                            }
-                        )
-                    }
-                }
-            }
-
-            Spacer(Modifier.height(14.dp))
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(123.dp)
-                    .clip(RoundedCornerShape(11.dp))
-                    .background(MaterialTheme.colorScheme.surfaceContainerHighest),
-                contentAlignment = Alignment.BottomCenter
-            ) {
-                Text(
-                    text = "⌄",
-                    modifier = Modifier.padding(bottom = 2.dp),
-                    color = MaterialTheme.colorScheme.onSurface,
-                    fontSize = 25.sp
+            when {
+                uiState.isLoading -> CircularProgressIndicator(
+                    modifier = Modifier.align(Alignment.Center),
+                    color = Color.White
                 )
-            }
-        }
-    }
-}
 
-@Composable
-private fun StudentRow(
-    number: Int,
-    expanded: Boolean,
-    onClick: () -> Unit
-) {
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(32.dp)
-                .background(MaterialTheme.colorScheme.surfaceContainerHigh)
-                .clickable(onClick = onClick),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                modifier = Modifier
-                    .padding(start = 3.dp)
-                    .size(26.dp)
-                    .clip(RoundedCornerShape(3.dp))
-                    .background(MaterialTheme.colorScheme.surface),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(number.toString(), fontSize = 15.sp, color = MaterialTheme.colorScheme.onSurface)
-            }
-
-            Text(
-                text = "Fulano Ciclano Beltrano",
-                modifier = Modifier.padding(start = 17.dp).weight(1f),
-                fontSize = 15.sp,
-                fontWeight = FontWeight.Medium,
-                maxLines = 1,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-
-            Text(
-                text = if (expanded) "⌃" else "⌄",
-                modifier = Modifier.padding(end = 8.dp),
-                fontSize = 18.sp,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-        }
-
-        if (expanded && number <= 3) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(32.dp)
-                    .background(MaterialTheme.colorScheme.surfaceVariant)
-                    .padding(start = 6.dp, end = 6.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Box(
+                uiState.errorMessage != null -> Column(
                     modifier = Modifier
-                        .width(61.dp)
-                        .height(23.dp)
-                        .clip(RoundedCornerShape(3.dp))
-                        .background(MaterialTheme.colorScheme.surfaceContainerHigh),
-                    contentAlignment = Alignment.Center
+                        .align(Alignment.Center)
+                        .padding(20.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    Text("Nota", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(
+                        text = uiState.errorMessage!!,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    Button(onClick = viewModel::carregar) {
+                        Text("Tentar novamente")
+                    }
                 }
 
-                Spacer(Modifier.weight(1f))
+                uiState.turmas.isEmpty() -> Text(
+                    text = "Nenhuma turma encontrada.",
+                    color = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .padding(20.dp)
+                )
 
-                SmallAction("✓")
-                Spacer(Modifier.width(8.dp))
-                SmallAction("×")
+                else -> LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(top = 28.dp, start = 16.dp, end = 16.dp, bottom = 16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(20.dp)
+                ) {
+                    items(uiState.turmas, key = { it.id }) { turma ->
+                        TurmaCard(turma = turma)
+                    }
+                }
             }
         }
-    }
-}
-
-@Composable
-private fun SmallAction(text: String) {
-    Box(
-        modifier = Modifier
-            .size(23.dp)
-            .clip(RoundedCornerShape(3.dp))
-            .background(MaterialTheme.colorScheme.surfaceContainerHigh),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(text, fontSize = 20.sp, color = MaterialTheme.colorScheme.onSurface)
     }
 }
